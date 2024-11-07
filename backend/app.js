@@ -33,9 +33,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './../front-end/view'));
 
 //middleware to handle the static files serving
-app.use('/', fileRoutes);
+app.use('/', fileRoutes);   
 app.use('/index', fileRoutes);
-app.use('/Delivery&Payment', fileRoutes);
+app.use('/Delivery&Payment', fileRoutes);  
 app.use('/profile', fileRoutes);
 app.use('/login', fileRoutes);
 app.use('/menuDetails', fileRoutes);

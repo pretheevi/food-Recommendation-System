@@ -2,7 +2,11 @@ const express = require('express'); // Import the express module.
 const foodRouter = express.Router(); // Get the router instance using express to handle the routers.
 const { URL } = require('url');
 const connection = require('./../dataBase/MySql'); // Import your MySQL connection.
+const path = require('path');
+const fs = require('fs');
 
+//read the html file to display
+const foodDetailsHTML = fs.readFileSync(path.join(__dirname, './../../front-end/view/recommentedFoodDetails', 'foodDetails.html'), 'utf8');
 
 const getFoodItemsBySubcategory = async (subcategory) => {
     return new Promise((resolve, reject) => {
@@ -266,11 +270,23 @@ foodRouter
             const food_details = await getFoodItemsBySubcategory(subcategory)
             food_details.forEach(foodItem => {
                 if((foodItem.food_id === parseInt(food_id)) == true){
-                    res.send(foodItem)
+                    let replacedHTML = foodDetailsHTML;    
+                    const placeholders = {
+                        '{{%content%}}':foodItem.name,
+                        '{{%price%}}':foodItem.price,
+                        '{{%description%}}':foodItem.description,
+                        '{{%ingredients%}}':foodItem.ingredients,
+                        '{{%region%}}':foodItem.region,
+                        '{{%imageUrl%}}':foodItem.imageUrl
+                    };
+                    for(const [key, value] of Object.entries(placeholders)){
+                        replacedHTML = replacedHTML.replace(key, value)
+                    }
+                    res.send(replacedHTML)
                 }
             })
         }catch(err){
-            res.send('hi') 
+            res.status(404).send('error', err); 
         }
         
     })
