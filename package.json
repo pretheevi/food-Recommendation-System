@@ -1,0 +1,26 @@
+{
+  "name": "food-restuarant",
+  "version": "1.0.0",
+  "description": "food restuarant recommendation system ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon ./backend/app.js",
+    "spl": "7y$W8oL3@xZrQ1#eT2vN"
+  },
+  "author": "Pretheeviraj.G",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mongoos": "^0.0.1-security",
+    "mongoose": "^8.5.3",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.3",
+    "nodemon": "^3.1.4",
+    "session": "^0.1.0"
+  }
+}

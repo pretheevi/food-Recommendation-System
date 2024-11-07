@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .form-box {
+            width: 400px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 5px 5px 5px #888888, -5px -5px 5px #bbbbbb;
+        }
+        .label-padding {
+            margin-right: 20px;
+        }
+        .input-box {
+            width: 100%;
+            padding: 5px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sectionRegister">
+        <div class="form-box register d-flex flex-column justify-content-center">
+            <h2>Register</h2>
+            <form action="/user/register" method="post">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <label class="label-padding">Username</label><br>
+                    <input class="input-box" type="text" name="name" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="phone-portrait"></ion-icon></span>
+                    <label class="label-padding">Phone No:</label><br>  
+                    <input class="input-box" type="tel" name="number" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <label class="label-padding">Email</label><br>  
+                    <input class="input-box" type="email" name="email" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <label class="label-padding">Password</label><br>
+                    <input class="input-box" type="password" name="password" required>
+                </div>
+                <div class="remember-forget d-flex flex-row justify-content-between">
+                    <label><input type="checkbox" id="terms" name="terms" required><a href="./terms&condition.html">agree to the terms & conditions</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <div class="login-register">
+                    <p>Already have an account? <a href="#" class="login-link" onclick="display('sectionLogin')">Login</a></p>
+                </div>
+            </form>
+        </div> 
+    </div>
+
+    <div id="sectionLogin">
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="/user/login" method="post" class="login-form">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <label class="label-padding">Email</label>
+                    <input class="input-box email" type="email" name="email" required>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <label class="label-padding">Password</label>
+                    <input class="input-box password" type="password" name="password" required>
+                </div>
+                <div class="remember-forget d-flex flex-row justify-content-top">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="#" onclick="display('sectionForgetPassword')">Forget Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="login-register">
+                    <p>Don't have an account? <a href="#" class="register-link" onclick="display('sectionRegister')">Register</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="sectionForgetPassword">
+        <form action="/user/forgetPassword" method="post">
+            <h1 class="heading">New password</h1>
+            <div class="input-box">
+                <label class="label-padding">Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="input-box">
+                <label class="label-padding">New Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <input type="hidden" name="_method" value="PATCH">
+            <button class="btn" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" src="https://new-assets.ccbp.in/frontend/content/static-ccbp-ui-kit/static-ccbp-ui-kit.js"></script>
+    <script>
+        async function login(email, password) {
+            try {
+                const response = await fetch('/user/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    // If the response is not OK, handle the error
+                    const errorMessage = await response.text();
+                    console.error('Login failed:', errorMessage);
+                    alert('Login failed: ' + errorMessage); // Optional: show an alert or error message to the user
+                    return;
+                }
+
+                const data = await response.json();
+                sessionStorage.setItem('userID', data.userID); // Store user ID in sessionStorage
+                window.location.href = '/'; // Redirect to home page
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An error occurred during login. Please try again.'); // Optional: show an alert for network errors
+            }
+}
+
+
+document.querySelector('.login-form').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    const email = document.querySelector('.email').value;
+    const password = document.querySelector('.password').value;
+
+    if (email && password) {
+        try {
+            await login(email, password); // Call the login function
+            console.log('Logging in with:', email, password);
+        } catch (error) {
+            console.error('Login failed:', error);
+            // Display error message to the user
+        }
+    } else {
+        // Display a message prompting the user to fill in both fields
+        console.warn('Please enter both email and password.');
+    }
+});
+
+
+    </script>
+</body>
+</html>

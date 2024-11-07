@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "MYSQL local",
+            "database": "foodrestaurant",
+            "username": "root",
+            "password": "7y$W8oL3@xZrQ1#eT2vN",
+            "connectionTimeout": 30
+        }
+    ]
+}

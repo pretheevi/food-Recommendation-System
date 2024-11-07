@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Food Restaurant</title>
+    <link rel="stylesheet" href="/style1.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand navbar-font-size" id="brand-name" href="/index">Suvaiyiyal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                    <a class="nav-link" href="#WhyChooseUs" id="navItem1">Why Choose Us?<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ExploreMenu" id="navItem2">Explore Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Delivery&Payment" id="navItem3">Delivery & Payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#FollowUS" id="navItem4">Follow Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Conditional rendering for Profile or Login -->
+                        <% if (isAuthenticated) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/profile">
+                                    <img class="profile-icon" src="https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_1280.png" alt="Profile" class="profile-icon">
+                                    <%= user.name %>
+                                </a>
+                            </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                        <% } %>                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="banner-section-bg-container d-flex justify-content-center flex-column">
+        <div class="text-center">
+            <h1 class="banner-heading mb-3">Get Delicious Food Anytime</h1>
+            <p class="banner-caption mb-4">Eat Smart & Healthy</p>
+            <button onclick="
+                window.location.href = '#ExploreMenu';
+            " class="btn custom-button">View Menu</button>
+            <button onclick="
+                window.location.href = '/Delivery&Payment'
+            " class="btn custom-outline-button">Order Now</button>
+        </div>
+    </div>
+
+
+
+<section class="recommendations">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5"><h1>Recommended foods for you</h1></div>
+        </div>
+        <div id="recommendation-container" class="row">
+
+        </div>
+    </div>
+</section>
+
+
+
+    <div id="ExploreMenu">
+        <div class="container">
+            <div class="row">
+                <div  class="mb-4 mt-5 col-12 col-lg-12 text-center">
+                    <h1>Explore</h1>
+                </div>
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1> Breakfast Items</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/DosaVarieties'">
+                    <img src="/dosa-banner.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Dosa Varieties</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/IdliVarieties'">
+                    <img src="../pictures/idli/idli-banner.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Idli Varieties</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/PongalVarieties'">
+                    <img src="https://as2.ftcdn.net/v2/jpg/02/80/40/87/1000_F_280408724_Quw1ZSJusybNuIk7F3m2J0WVeidlMoRc.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Pongal Varieties</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/puriiVarieties'">
+                    <img src="https://as2.ftcdn.net/v2/jpg/06/86/98/53/1000_F_686985390_XUHAdTPyehpEFuVhnlQrfcAk9WsisATt.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">purii Varieties</h1>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Appetizers & Starters</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/PakorasVarieties'" >
+                    <img src="https://as2.ftcdn.net/v2/jpg/07/67/89/27/1000_F_767892777_Y1Zadeq9na8qAlzmUyqyv42Q9QbTo1ch.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Pakoras</h1>
+                </div>
+                <div class="card col-6 col-lg-3"  onclick="window.location.href = '/menuDetails/SamosasVarieties'">
+                    <img src="https://t4.ftcdn.net/jpg/06/16/36/61/240_F_616366141_1LTwbMK5tFIncTvMDj0R7OEZHUYvDza3.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Samosas</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/ChaatVarieties'">
+                    <img src="https://as1.ftcdn.net/v2/jpg/05/41/70/88/1000_F_541708869_x3yoltbwfMl07Vdfq1u393neiXGAzrmS.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Chaat</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/TikkasVarieties'">
+                    <img src="https://www.kitchensanctuary.com/wp-content/uploads/2020/07/Chicken-Tikka-Skewers-wide-FS-77.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Tikkas</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Main Course</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/VegetarianVarieties'">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP._ZKfbyOu7N2XHMFN9tlImAHaEQ&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Vegetarian</h1>
+                </div>
+                <div class="card col-6 col-lg-3"  onclick="window.location.href = '/menuDetails/Non-VegetarianVarieties'">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.KpBT62XEWRwO8q-LW7kfuQHaDo&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Non-Vegetarian</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/RiceVarieties'">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.OH79jGOY3hrV95isW75aEwHaE7&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Rice Varieties</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Breads</h1>
+                </div>
+                <div class="card col-6 col-lg-3"  onclick="window.location.href = '/menuDetails/RotiVarieties'">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.sOPl-H3524fbWAd1QQpc9AHaFF&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Roti Varieties</h1>
+                </div>
+                <div class="card col-6 col-lg-3"  onclick="window.location.href = '/menuDetails/ParathasVarieties'">
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.24qX7Mbvwn0pwaiFAQwZpgHaE8&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Parathas</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Snacks</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/vadaVarieties'">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.kAZ4tZKyMF7AXGoQFFCZSQHaE6&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Vada Varieties</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/Sandwiches'">
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.2c63hIQvxDuZxWg5z1YFqAHaE3&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Sandwiches</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/StreetFoods'">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.jNpNlsiX4p93M6SzE3DVXgHaE5&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Street Foods</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Desserts</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/IndianSweetsVarieties'">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.7-eGGZxV0tDSmddu5bax_gHaE8&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Indian Sweets</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/HalwaVarietiesVarieties'">
+                    <img src="https://img.onmanorama.com/content/dam/mm/en/food/foodie/images/2020/2/15/halwa.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Halwa Varieties</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Beverages</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/HotBeverageVarieties'">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.se5YZfW4Rz05GDjiW8AELwHaE8&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Hot Beverages</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/ColdBeveragesVarieties'">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.kMVZHyJPZAzKImzXI8B_8gHaFE&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">Cold Beverages</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-4 mt-5 col-12 col-lg-12">
+                    <h1>Regional Specialties</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/SouthIndianVarieties'">
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.zNo-TMEzeOJHRU85ECretAHaEK&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">South Indian</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/NorthIndianVarieties'">
+                    <img src="https://cdn.wallpapersafari.com/20/75/QZyMtG.jpg" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">North Indian</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/EastIndianVarieties'">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.VoqOvVTEkTeS6wc3E1oi5gHaD4&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">East Indian</h1>
+                </div>
+                <div class="card col-6 col-lg-3" onclick="window.location.href = '/menuDetails/WestIndianVarieties'">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.4EB9mlRrpSOKWvHwmhx_8gHaF7&pid=Api&P=0&h=180" alt="">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">West Indian</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="WhyChooseUs" class="container">
+        <div class="row why-choose-us-container">
+            <div class="text-center col-12 col-xl-12"><h1 class="whyChooseUs-MainHeading">Why Choose Us</h1></div>
+            <div class="card card-item col-12 col-lg-4 mt-1">
+                <div class="text-center inner-card">
+                    <h1 class="whyChooseUs-heading">Exceptional Quality</h1>
+                    <p class="WCU-description pt-3"> We take pride in delivering only the highest quality products. Our team meticulously crafts every detail to ensure you receive the best possible experience. Quality is at the heart of everything we do, ensuring long-lasting satisfaction.</p>
+                </div>
+            </div>
+            <div class="card card-item col-12 col-lg-4 mt-1">
+                <div class="text-center inner-card">
+                    <h1 class="whyChooseUs-heading"> Unmatched Customer Support</h1>
+                    <p class="WCU-description pt-3">Our dedicated customer support team is here to assist you 24/7. We believe in building strong relationships with our customers by providing prompt and reliable service. Your satisfaction is our top priority.</p>
+                </div>
+            </div>
+            <div class="card card-item col-12 col-lg-4 mt-1">
+                <div class="text-center inner-card">
+                    <h1 class="whyChooseUs-heading">Innovative Solutions</h1>
+                    <p class="WCU-description pt-3">We are constantly innovating to bring you the latest and most efficient solutions. Whether it's cutting-edge technology or creative approaches, our commitment to innovation keeps us ahead of the curve, helping you achieve your goals faster.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="FollowUS">
+        <section id="follow-us" style="background-color: #f8f8f8; padding: 50px 0; text-align: center;">
+            <h2 style="font-size: 32px; margin-bottom: 20px;">Follow Us</h2>
+            <p style="margin-bottom: 30px;">Stay connected with us on social media for the latest updates!</p>
+            <div class="social-icons">
+                <!-- <a href="https://www.facebook.com" target="_blank" style="margin: 0 10px;">
+                    <i class="fab fa-facebook-f"></i>
+                </a> -->
+                <a href="https://x.com/prethiviArt" target="_blank" style="margin: 0 10px;">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <!-- <a href="https://www.instagram.com" target="_blank" style="margin: 0 10px;">
+                    <i class="fab fa-instagram"></i>
+                </a> -->
+                <a href="https://www.linkedin.com/in/pretheevi-raj/" target="_blank" style="margin: 0 10px;">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </section>
+    </div>
+
+
+<script type="text/javascript" src="https://new-assets.ccbp.in/frontend/content/static-ccbp-ui-kit/static-ccbp-ui-kit.js"></script>
+<script>
+async function fetchRecommendations() {
+    try {
+        const userId = sessionStorage.getItem('userID'); // For session storage
+        const response = await fetch(`/api/recommendations/${userId}`); // Include userId in the URL
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const data = await response.json(); // Assuming the response is JSON
+
+        // Check if recommendations is indeed an array
+        if (!Array.isArray(data)) {
+            throw new Error('Recommendations is not an array');
+        }
+
+        // Handle no recommendations
+        if (data.length === 0) {
+            console.warn('No recommendations found for user:', userId); // Fixed variable name
+            return; // Exit early if no recommendations
+        }
+
+        console.log('Recommendations received:', data);
+
+        const recommendationList = document.querySelector('#recommendation-container');
+
+        // Clear any existing content
+        recommendationList.innerHTML = '';
+
+        // Loop through recommendations and create HTML elements
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'col-6 col-lg-3 p-3';
+            card.innerHTML = `
+                <div class="card" onclick="window.location.href = '/api/menu/food_details?food_id=${item.food_id}&name=${item.name}&subcategory=${item.subcategory}'">
+                    <img style="height:250px;" src="${item.imageUrl}" alt="${item.name}">
+                    <h1 class="whyChooseUs-heading mt-3 mb-1">${item.name}</h1>
+                </div>
+            `;
+            recommendationList.appendChild(card);
+            recommendationCardDetails(item.food_id, item.name)
+        });
+    } catch (error) {
+        console.error('Error fetching recommendations:', error);
+    }
+}
+document.addEventListener('DOMContentLoaded', fetchRecommendations);
+
+function recommendationCardDetails(food_id, name){
+    console.log(`${food_id}, ${name}`);
+    // try{
+    //     const response = await fetch(`/menuDetails?food_id=${food_id}&name=${name}&`)
+    // }catch(error){
+
+    // }
+}
+
+</script>
+</body>
+</html>  
+
+
+
