@@ -1,22 +1,22 @@
 const express = require('express'); // Import the express module.
 const foodRouter = express.Router(); // Get the router instance using express to handle the routers.
 const { URL } = require('url');
-const connection = require('./../dataBase/MySql'); // Import your MySQL connection.
 const path = require('path');
 const fs = require('fs');
 
 //read the html file to display
 const foodDetailsHTML = fs.readFileSync(path.join(__dirname, './../../front-end/view/recommentedFoodDetails', 'foodDetails.html'), 'utf8');
 
+const food_path = path.join(__dirname, '../../DataBase/foodData.json');
+const foodData = JSON.parse(fs.readFileSync(food_path, 'utf8'));
+
 const getFoodItemsBySubcategory = async (subcategory) => {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM food_items WHERE subcategory = ?'; // Adjust table name as necessary
-        connection.query(query, [subcategory], (err, results) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve(results);
-        });
+        const foodItems = foodData.filter( items => items.subcategory === subcategory );
+        if(!foodItems){
+            reject('No food items found');
+        }
+        resolve(foodItems);
     });
 };
 
@@ -221,7 +221,7 @@ foodRouter
     })
     .get('/menu/puriiVarieties', async (req, res) => {
         try {
-            const PakorasItems = await getFoodItemsBySubcategory('puri Varieties');
+            const PakorasItems = await getFoodItemsBySubcategory('Puri Varieties');
             console.log('Pakoras items:', PakorasItems); // Log the items
             res.json({ PakorasItems });
         } catch (error) {
@@ -231,7 +231,7 @@ foodRouter
     })
     .get('/menu/vadaVarieties', async (req, res) => {
         try {
-            const vadaVarieties = await getFoodItemsBySubcategory('vada Varieties');
+            const vadaVarieties = await getFoodItemsBySubcategory('Vada Varieties');
             console.log('vada items:', vadaVarieties); // Log the items
             res.json({ vadaVarieties });
         } catch (error) {

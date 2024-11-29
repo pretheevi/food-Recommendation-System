@@ -1,0 +1,3 @@
+{
+  "ignore": ["DataBase/userCart.json", "node_modules/**"]
+}

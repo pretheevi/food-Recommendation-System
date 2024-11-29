@@ -189,7 +189,7 @@ async function recommendItems(targetUser) {
     if (!userCartData[targetUser]) {
         await loadCartData(targetUser);
     }
-
+    // collaborative filtering approach
     const similarUsers = findSimilarUsers(targetUser);
     if (similarUsers.length === 0) return await getPopularItems();
 
@@ -251,12 +251,14 @@ async function loadCartData(user_id) {
 async function getPopularItems() {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT food_id, name, subcategory, imageUrl
-            FROM food_items 
-            WHERE trending_score IS NOT NULL
-            ORDER BY trending_score DESC
-            LIMIT 10`;
-
+        SELECT food_items.food_id, food_items.name, food_items.subcategory, food_items.imageUrl,
+                COUNT(cart.food_id) AS popularity
+        FROM food_items
+        JOIN cart ON food_items.food_id = cart.food_id
+        GROUP BY food_items.food_id
+        ORDER BY popularity DESC
+        LIMIT 10;
+    `;
         connection.query(query, (err, results) => {
             if (err) {
                 console.error('Error fetching popular items:', err);

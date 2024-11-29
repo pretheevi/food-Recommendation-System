@@ -6,7 +6,6 @@ const path = require('path'); //path to define the path directory.
 const app = express();
 
 
-
 //custom modules 
 const fileRoutes = require('./routes/routes');
 const UserRoutes = require('./routes/loginRoutes');
@@ -31,6 +30,7 @@ app.use(express.static(path.join(__dirname, './../front-end/pictures')))
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './../front-end/view'));
+app.use(express.static(path.join(__dirname, './../front-end/view/foodItem pages')));
 
 //middleware to handle the static files serving
 app.use('/', fileRoutes);   

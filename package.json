@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx nodemon ./backend/app.js",
+    "start": "npx nodemon --ignore DataBase/userCart.json ./backend/app.js",
     "spl": "7y$W8oL3@xZrQ1#eT2vN"
   },
   "author": "Pretheeviraj.G",

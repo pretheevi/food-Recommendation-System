@@ -1,26 +1,43 @@
 const express = require('express');
 const cardRoutes = express.Router(); 
-const connection = require('./../dataBase/MySql'); 
 const { userCartData, recommendItems } = require('./recommendation'); // Import recommendation logic
+const path = require('path');
+const fs = require('fs');
+
+
+//let cartData = JSON.parse(fs.readFileSync(cart_path, 'utf8'));
+const cart_path = path.join(__dirname, '../../DataBase/userCart.json');
+function getCartData(){
+    let cartData = JSON.parse(fs.readFileSync(cart_path, 'utf8'));
+    return cartData;
+}
 
 // Cart Route for Adding/Updating Items
-cardRoutes.post('/cart', (req, res) => {
-    const user_id = req.session.user.userID  ? req.session.user.userID : null;
+cardRoutes.post('/cart', async (req, res) => {
+    const user_id = req.session.user?.userID  ? req.session.user.userID : null;
     console.log('user id is got', user_id);
     if (!user_id) {
         return res.status(401).json({ message: 'User not logged in' });
     }
 
     const { food_id, quantity } = req.body;
+    console.log(food_id, quantity)
+    try{    
+        let cartData = await getCartData();
+        const cartObj = {
+            card_id: cartData.length + 1,
+            user_id: user_id,
+            food_id: Number(food_id),
+            quantity: quantity,
+            added_at: new Date()
+            }
+        console.log(cartObj);
+        cartData.push(cartObj);
 
-        // Update cart in database
-        connection.query(
-        'INSERT INTO Cart (user_id, food_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = ?',
-        [user_id, food_id, quantity, quantity],
-        (err, results) => {
+        fs.writeFile(cart_path, JSON.stringify(cartData, null, 2), 'utf8', (err) => {
             if (err) {
-                console.error('Database error:', err);  // Log detailed error
-                return res.status(500).json({ message: 'Server error' });
+                console.log('Error saving cart data:', err);
+                return res.status(500).send('Error saving cart data');
             }
 
             // update in-memory cart data
@@ -32,13 +49,15 @@ cardRoutes.post('/cart', (req, res) => {
             if (!userCartData[user_id].includes(food_id)) {
                 userCartData[user_id].push(food_id);
             }
+
             console.log('User cart data:', userCartData);
-            res.json({ message: 'Cart updated successfully', food_id, quantity });
-        }
-    );
-
+            res.send(JSON.stringify(cartData));
+        });
+    }catch(error){
+        console.log(error);
+        res.send(error.message);
+    }
     });
-
 
     // Add a route for recommendations
     cardRoutes.get(`/recommendations/:userID`, async (req, res) => {
@@ -58,8 +77,6 @@ cardRoutes.post('/cart', (req, res) => {
             res.status(500).json({ message: 'Error fetching recommendations' });
         }
     });
-
-
 
     module.exports = cardRoutes;
 

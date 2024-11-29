@@ -1,1 +1,1 @@
-SELECT * FROM food_items 
+SELECT * FROM cart
